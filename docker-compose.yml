@@ -7,8 +7,8 @@ services:
       - 15672:15672
       - 5672:5672
     volumes:
-      - ./controller/rabbitmq/home:/var/lib/rabbitmq
-      - ./controller/rabbitmq/config:/etc/rabbitmq/conf.d
+      - ./middleware/rabbitmq/home:/var/lib/rabbitmq
+      - ./middleware/rabbitmq/config:/etc/rabbitmq/conf.d
     environment:
       RABBITMQ_DEFAULT_USER: system
       RABBITMQ_DEFAULT_PASS: system
@@ -18,7 +18,7 @@ services:
     ports:
       - 5050:5050
     volumes:
-      - ./controller/pgadmin/data:/var/lib/pgadmin
+      - ./middleware/pgadmin/data:/var/lib/pgadmin
     environment:
       PGADMIN_LISTEN_PORT: 5050
       PGADMIN_DEFAULT_EMAIL: randozou@gmail.com
@@ -28,12 +28,12 @@ services:
   pgsql:
     hostname: pgsql
     build:
-      context: ./controller/pgsql
+      context: ./middleware/pgsql
     restart: always
     ports:
       - 5432:5432
     volumes:
-      - ./controller/pgsql/postgresql:/var/lib/postgresql
+      - ./middleware/pgsql/postgresql:/var/lib/postgresql
     environment:
       POSTGRES_PASSWORD: system
       POSTGRES_USER: system
