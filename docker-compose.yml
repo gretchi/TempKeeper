@@ -1,0 +1,43 @@
+version: "3.7"
+services:
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:5050
+    volumes:
+      - ./middleware/pgadmin/data:/var/lib/pgadmin
+    environment:
+      PGADMIN_LISTEN_PORT: 5050
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: zHbK7RubeqTU
+
+
+  pgsql:
+    hostname: pgsql
+    build:
+      context: ./middleware/pgsql
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./middleware/pgsql/postgresql:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: system
+      POSTGRES_USER: system
+      POSTGRES_DB: tkdb
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      POSTGRES_HOST_AUTH_METHOD: trust
+      TZ: "Asia/Tokyo"
+
+  driver:
+    build:
+      context: ./driver
+      dockerfile: Dockerfile
+    tty: true
+
+    environment:
+      TZ: Asia/Tokyo
+    env_file: ./driver/.develop.env
+    volumes:
+      - ./driver:/var/driver
+    # command: python3 /var/app/main.py

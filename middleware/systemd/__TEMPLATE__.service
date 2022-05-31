@@ -1,0 +1,16 @@
+[Unit]
+Description=__TEMPLATE__
+
+[Service]
+WorkingDirectory=/home/gretel/Git/__TEMPLATE__
+ExecStart=/usr/local/bin/docker-compose -p __TEMPLATE__ -f /home/gretel/Git/__TEMPLATE__/docker-compose.yml up
+ExecStop=/usr/local/bin/docker-compose -p __TEMPLATE__ -f /home/gretel/Git/__TEMPLATE__/docker-compose.yml down
+ExecReload=/usr/local/bin/docker-compose -p __TEMPLATE__ -f /home/gretel/Git/__TEMPLATE__/docker-compose.yml restart
+User=gretel
+Group=gretel
+Restart=always
+
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
