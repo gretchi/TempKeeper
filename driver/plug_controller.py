@@ -43,10 +43,13 @@ class PlugController(batch.BatchBase):
             # ToDo: ここ
             state = plugwork.STATE_OFF
 
-            plugwork.set_plug_state(state, ip_addr)
-            self.model.add_plug_state(mac, state, helper.dt.now())
-
-        self.model.commit()
+            try:
+                plugwork.set_plug_state(state, ip_addr)
+            except Exception as e:
+                logging.error(e)
+            else:
+                self.model.add_plug_state(mac, state, helper.dt.now())
+                self.model.commit()
 
 
 if __name__ == "__main__":
