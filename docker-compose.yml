@@ -1,0 +1,56 @@
+version: "3.7"
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./controller/rabbitmq/home:/var/lib/rabbitmq
+      - ./controller/rabbitmq/config:/etc/rabbitmq/conf.d
+    environment:
+      RABBITMQ_DEFAULT_USER: system
+      RABBITMQ_DEFAULT_PASS: system
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:5050
+    volumes:
+      - ./controller/pgadmin/data:/var/lib/pgadmin
+    environment:
+      PGADMIN_LISTEN_PORT: 5050
+      PGADMIN_DEFAULT_EMAIL: randozou@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: zHbK7RubeqTU
+
+
+  pgsql:
+    hostname: pgsql
+    build:
+      context: ./controller/pgsql
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./controller/pgsql/postgresql:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: system
+      POSTGRES_USER: system
+      POSTGRES_DB: ptcmdb
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      POSTGRES_HOST_AUTH_METHOD: trust
+      TZ: "Asia/Tokyo"
+
+  driver:
+    build:
+      context: ./driver
+      dockerfile: Dockerfile
+    tty: true
+
+    environment:
+      TZ: Asia/Tokyo
+    env_file: ./driver/.develop.env
+    volumes:
+      - ./driver:/var/driver
+    # command: python3 /var/app/main.py
