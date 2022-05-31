@@ -79,6 +79,9 @@ def set_plug_state(state, host, port=TPLINK_SMART_PLUG_CONTROL_PORT):
     elif state == STATE_ON:
         cmd = '{"system":{"set_relay_state":{"state":1}}}'
 
+    if is_develop():
+        return
+
     helper.syscmd.execute(
         [
             TPLINK_SMARTHOME_API_BIN,

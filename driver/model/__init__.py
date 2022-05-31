@@ -55,6 +55,6 @@ class Model(object):
     def add_plug_state(self, mac, status, sent_at):
         with self.conn.cursor() as cursor:
             query = (
-                "INSERT INTO temperature (mac, status, sent_at ) VALUES (%s, %s, %s)"
+                "INSERT INTO plug_state (mac, status, sent_at) VALUES (%s, %s, %s)"
             )
             cursor.execute(query, (mac, status, sent_at))

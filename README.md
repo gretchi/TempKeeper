@@ -26,12 +26,15 @@ docker-compose exec driver python3 /var/driver/plug_controller.py
 ## pgsql
 
 ```bash
-docker-compose exec driver pgsql psql
+docker-compose exec pgsql psql -U system tkdb
+
+docker-compose exec pgsql psql -U system tkdb -c "SELECT * FROM temperature ORDER BY id DESC LIMIT 10;"
+docker-compose exec pgsql psql -U system tkdb -c "SELECT * FROM node;"
 ```
 
 ```sql
-SELECT * FROM temperature
-SELECT * FROM node
+SELECT * FROM temperature ORDER BY id DESC LIMIT 10;
+SELECT * FROM node;
 ```
 
 ## DB破壊

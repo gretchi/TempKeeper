@@ -32,7 +32,7 @@ class BTWork(object):
         logging.info(
             f"mac: {self.mac}, temp: {temp}, humidity: {humidity}, battery: {battery}")
 
-        return self.mac, temp, humidity, battery, datetime.datetime.now()
+        return self.mac, temp, humidity, battery, helper.dt.now()
 
     def dummy_device_function(self, mac):
         if mac in self._dummy_device:
