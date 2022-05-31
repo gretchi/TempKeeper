@@ -2,7 +2,7 @@
 Description=temp_collector
 
 [Service]
-WorkingDirectory=/home/gretel/Git/TempKeeper/driver
+WorkingDirectory=/home/gretel/TempKeeper/driver
 ExecStart=/home/gretel/.pyenv/versions/TempKeeper/bin/python temp_collector.py
 User=root
 Group=root
