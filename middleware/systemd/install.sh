@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVICE_NAME="__TEMPLATE__"
+SERVICE_NAME="TempKeeper"
 
 ln -s "/home/gretel/${SERVICE_NAME}/systemd/${SERVICE_NAME}.service" "/usr/lib/systemd/system/${SERVICE_NAME}.service"
 
