@@ -43,6 +43,7 @@ def upgrade():
             sensor_mac VARCHAR(32) NOT NULL,
             plug_mac VARCHAR(32) NOT NULL,
             plug_ip VARCHAR(32) DEFAULT NULL,
+            preset_temp INTEGER NOT NULL DEFAULT 24,
             location_name VARCHAR(64) NOT NULL,
             PRIMARY KEY (id));
     """
