@@ -28,15 +28,16 @@ class TempCollector(batch.BatchBase):
             btwork = BTWork(mac)
             try:
                 mac, temp, humidity, battery, ts = btwork.scan()
+                self.model.add_temperature(mac, temp, humidity, battery, ts)
             except Exception as e:
                 logging.error(e)
+                self.model.rollback()
                 life -= 1
-                continue
+            else:
+                self.model.commit()
 
             logging.info("end")
 
-            self.model.add_temperature(mac, temp, humidity, battery, ts)
-            self.model.commit()
 
         if life < 1:
             raise batch.BatchSystemRebootError("Bluetooth feeling unwell")

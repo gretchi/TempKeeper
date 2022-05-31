@@ -45,10 +45,11 @@ class PlugController(batch.BatchBase):
 
             try:
                 plugwork.set_plug_state(state, ip_addr)
+                self.model.add_plug_state(mac, state, helper.dt.now())
             except Exception as e:
                 logging.error(e)
+                self.model.rollback()
             else:
-                self.model.add_plug_state(mac, state, helper.dt.now())
                 self.model.commit()
 
 
