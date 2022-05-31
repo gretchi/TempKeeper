@@ -22,18 +22,29 @@ class Model(object):
         self.conn.rollback()
 
     def dict_cursor(self):
-        self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        return self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+    def dict_fetch_all(self, query):
+        with self.dict_cursor() as cursor:
+            cursor.execute(query)
+            results = []
+            for row in cursor.fetchall():
+                results.append(dict(row))
+            return results
 
     def get_nodes(self):
-        with self.dict_cursor() as cursor:
-            query = "SELECT id, sensor_mac, plug_mac, plug_ip, location_name FROM node"
-            cursor.execute(query)
-            yield cursor.fetchall()
+        query = "SELECT id, sensor_mac, plug_mac, plug_ip, location_name FROM node"
+        return self.dict_fetch_all(query)
 
     def add_temperature(self, mac, temp, humidity, battery, sent_at):
         with self.conn.cursor() as cursor:
             query = "INSERT INTO temperature (mac, temp, humidity, battery, sent_at) VALUES (%s, %s, %s, %s, %s)"
             cursor.execute(query, (mac, temp, humidity, battery, sent_at))
+
+    def set_plug_ip(self, plug_mac, plug_ip):
+        with self.conn.cursor() as cursor:
+            query = "UPDATE node SET plug_ip = %s WHERE plug_mac = %s"
+            cursor.execute(query, (plug_ip, plug_mac))
 
     def get_temperature_all(self):
         with self.conn.cursor() as cursor:
