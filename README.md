@@ -13,13 +13,26 @@ docker-compose exec driver alembic upgrade head
 docker-compose exec driver alembic revision -m "revision_name"
 ```
 
-## Development
+## script
 
 ```bash
-# driver
-docker-compose exec driver python3 /var/driver/main.py
+# temp_collector
+docker-compose exec driver python3 /var/driver/temp_collector.py
+
+# plug_controller
+docker-compose exec driver python3 /var/driver/plug_controller.py
 ```
 
+## pgsql
+
+```bash
+docker-compose exec driver pgsql psql
+```
+
+```sql
+SELECT * FROM temperature
+SELECT * FROM node
+```
 
 ## DB破壊
 
