@@ -60,8 +60,8 @@ class PlugController(batch.BatchBase):
 
 
 if __name__ == "__main__":
-    if "root" != getpass.getuser():
-        logging.fatal("please run as root")
+    if "root" == getpass.getuser():
+        logging.fatal("please run as not root")
         exit(1)
 
     worker = PlugController()
