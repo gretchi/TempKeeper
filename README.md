@@ -19,3 +19,11 @@ docker-compose exec cm-daemon alembic revision -m "revision_name"
 # driver
 docker-compose exec cm-daemon python3 /var/driver/main.py
 ```
+
+
+## DB破壊
+
+```
+docker-compose stop pgsql && docker-compose rm pgsql && docker-compose up -d pgsql
+docker-compose exec driver alembic upgrade head
+```
