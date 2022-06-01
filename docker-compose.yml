@@ -4,8 +4,8 @@ services:
     image: dpage/pgadmin4
     ports:
       - 5050:5050
-    volumes:
-      - ./middleware/pgadmin/data:/var/lib/pgadmin
+    # volumes:
+    #   - ./middleware/pgadmin/data:/var/lib/pgadmin
     environment:
       PGADMIN_LISTEN_PORT: 5050
       PGADMIN_DEFAULT_EMAIL: admin@example.com
