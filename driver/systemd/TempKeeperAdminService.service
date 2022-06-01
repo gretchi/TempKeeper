@@ -1,0 +1,14 @@
+[Unit]
+Description=TempKeeperAdminService
+
+[Service]
+WorkingDirectory=/home/gretel/TempKeeper/driver
+ExecStart=/home/gretel/TempKeeper/driver/admin-daemon.sh
+ExecStop=/bin/kill -TERM ${MAINPID}
+Restart=always
+User=gretel
+Group=gretel
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
