@@ -10,6 +10,7 @@ import helper
 import batch
 from btwork import BTWork
 
+FAIL_LIFE = 2
 
 class TempCollector(batch.BatchBase):
     def __init__(self):
@@ -18,7 +19,7 @@ class TempCollector(batch.BatchBase):
 
 
     def main(self):
-        life = 5
+        life = FAIL_LIFE
 
         for row in self.model.get_nodes_order_by_random():
             mac = row["sensor_mac"]
@@ -36,11 +37,12 @@ class TempCollector(batch.BatchBase):
             else:
                 self.model.commit()
 
+            if life <= 0:
+                raise batch.BatchSystemRebootError("Bluetooth feeling unwell")
+
             logging.info("end")
 
 
-        if life < 1:
-            raise batch.BatchSystemRebootError("Bluetooth feeling unwell")
 
         return 0
 
