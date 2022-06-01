@@ -4,6 +4,9 @@ cd $(dirname $0)
 
 PYTHON_PATH="/home/gretel/.pyenv/versions/TempKeeper/bin/python"
 
+# git pull
+git pull
+
 # migration
 ../migration.sh
 
