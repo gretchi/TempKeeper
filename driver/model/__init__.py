@@ -60,4 +60,4 @@ class Model(object):
             query = (
                 "INSERT INTO plug_state (mac, status, sent_at) VALUES (%s, %s, %s)"
             )
-            cursor.execute(query, (mac, status, sent_at))
+            cursor.execute(query, (mac, bool(status), sent_at))
