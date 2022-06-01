@@ -10,6 +10,7 @@ services:
       PGADMIN_LISTEN_PORT: 5050
       PGADMIN_DEFAULT_EMAIL: admin@example.com
       PGADMIN_DEFAULT_PASSWORD: zHbK7RubeqTU
+      TZ: "Asia/Tokyo"
 
 
   pgsql:
