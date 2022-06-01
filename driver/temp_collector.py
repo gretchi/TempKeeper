@@ -20,7 +20,7 @@ class TempCollector(batch.BatchBase):
     def main(self):
         life = 5
 
-        for row in self.model.get_nodes():
+        for row in self.model.get_nodes_order_by_random():
             mac = row["sensor_mac"]
             location_name = row["location_name"]
 

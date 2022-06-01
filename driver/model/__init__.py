@@ -36,6 +36,10 @@ class Model(object):
         query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node"
         return self.dict_fetch_all(query)
 
+    def get_nodes_order_by_random(self):
+        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY RANDOM()"
+        return self.dict_fetch_all(query)
+
     def add_temperature(self, mac, temp, humidity, battery, sent_at):
         with self.conn.cursor() as cursor:
             query = "INSERT INTO temperature (mac, temp, humidity, battery, sent_at) VALUES (%s, %s, %s, %s, %s)"
