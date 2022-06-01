@@ -10,7 +10,7 @@ import helper
 import batch
 from btwork import BTWork
 
-FAIL_LIFE = 2
+FAIL_LIFE = 4
 
 class TempCollector(batch.BatchBase):
     def __init__(self):
@@ -41,7 +41,6 @@ class TempCollector(batch.BatchBase):
                 raise batch.BatchSystemRebootError("Bluetooth feeling unwell")
 
             logging.info("end")
-
 
 
         return 0

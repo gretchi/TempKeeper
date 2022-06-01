@@ -14,4 +14,6 @@ while true; do
     # plug function
     ${PYTHON_PATH} ./plug_controller.py
 
+    sleep 1m
+
 done
