@@ -8,7 +8,8 @@ PYTHON_PATH="/home/gretel/.pyenv/versions/TempKeeper/bin/python"
 git pull
 
 # migration
-../migration.sh
+alembic upgrade head
+
 
 while true; do
     # sensor function
