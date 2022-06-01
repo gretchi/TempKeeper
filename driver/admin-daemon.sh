@@ -8,7 +8,7 @@ PYTHON_PATH="/home/gretel/.pyenv/versions/TempKeeper/bin/python"
 git pull
 
 # migration
-alembic upgrade head
+/home/gretel/.pyenv/versions/TempKeeper/bin/alembic upgrade head
 
 
 while true; do
