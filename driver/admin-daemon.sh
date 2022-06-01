@@ -5,7 +5,7 @@ cd $(dirname $0)
 PYTHON_PATH="/home/gretel/.pyenv/versions/TempKeeper/bin/python"
 
 # migration
-docker-compose exec driver alembic upgrade head
+../migration.sh
 
 while true; do
     # sensor function
