@@ -28,7 +28,7 @@ def upgrade():
         temp FLOAT NOT NULL,
         humidity FLOAT NOT NULL,
         battery INTEGER NOT NULL,
-        sent_at TIMESTAMP NOT NULL,
+        sent_at TIMESTAMP WITH TIME ZONE NOT NULL,
         create_at TIMESTAMP NULL DEFAULT now(),
         PRIMARY KEY (id));
     """
@@ -56,13 +56,11 @@ def upgrade():
         id INTEGER NOT NULL DEFAULT nextval('plug_state_id_seq'),
         mac VARCHAR(32) NOT NULL,
         status INTEGER NOT NULL,
-        sent_at TIMESTAMP NOT NULL,
+        sent_at TIMESTAMP WITH TIME ZONE NOT NULL,
         create_at TIMESTAMP NULL DEFAULT now(),
         PRIMARY KEY (id));
     """
     )
-
-
 
 
 def downgrade():
