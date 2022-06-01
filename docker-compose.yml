@@ -29,6 +29,21 @@ services:
       POSTGRES_HOST_AUTH_METHOD: trust
       TZ: "Asia/Tokyo"
 
+  grafana:
+    hostname: grafana
+    image: docker.io/bitnami/grafana:7-debian-10
+    restart: always
+    user: "1000"
+    ports:
+      - 3000:3000
+    environment:
+      TZ: "Asia/Tokyo"
+      GF_SECURITY_ADMIN_PASSWORD: qjNY6eY4zNjK
+    volumes:
+      - ./middleware/grafana/data:/opt/bitnami/grafana/data
+      - ./middleware/grafana/etc/grafana:/etc/grafana
+      - ./middleware/grafana/usr/share/grafana:/usr/share/grafana
+
   driver:
     build:
       context: ./driver
