@@ -40,8 +40,8 @@ def upgrade():
     conn.execute(
         """CREATE TABLE node (
             id INT NOT NULL DEFAULT nextval('node_id_seq'),
-            sensor_mac VARCHAR(32) NOT NULL,
-            plug_mac VARCHAR(32) NOT NULL,
+            sensor_mac VARCHAR(32) UNIQUE NOT NULL,
+            plug_mac VARCHAR(32) UNIQUE NOT NULL,
             plug_ip VARCHAR(32) DEFAULT NULL,
             preset_temp INTEGER NOT NULL DEFAULT 24,
             location_name VARCHAR(64) NOT NULL,
@@ -55,7 +55,7 @@ def upgrade():
         """CREATE TABLE plug_state (
         id INT NOT NULL DEFAULT nextval('plug_state_id_seq'),
         mac VARCHAR(32) NOT NULL,
-        status INTEGER NOT NULL,
+        status BOOLEAN NOT NULL,
         sent_at TIMESTAMP NOT NULL,
         create_at TIMESTAMP NULL DEFAULT now(),
         PRIMARY KEY (id));
