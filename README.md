@@ -41,7 +41,7 @@ SELECT * FROM node;
 
 ## DB破壊
 
-```
+```bash
 docker-compose stop pgsql && docker-compose rm pgsql && docker-compose up -d pgsql
 docker-compose exec driver alembic upgrade head
 ```
