@@ -78,7 +78,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 20,
+        "w": 19,
         "x": 0,
         "y": 0
       },
@@ -146,6 +146,7 @@
           "color": {
             "mode": "thresholds"
           },
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -156,14 +157,14 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "celsius"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 6,
-        "w": 4,
-        "x": 20,
+        "w": 5,
+        "x": 19,
         "y": 0
       },
       "id": 10,
@@ -393,7 +394,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 24,
         "x": 0,
         "y": 10
@@ -510,7 +511,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 18
       },
       "id": 3,
       "interval": null,
@@ -586,5 +587,5 @@
   "timezone": "",
   "title": "小鳥ケージ状態",
   "uid": "HqDs-4_7k",
-  "version": 20
+  "version": 28
 }
