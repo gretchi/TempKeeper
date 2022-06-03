@@ -78,7 +78,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 24,
+        "w": 20,
         "x": 0,
         "y": 0
       },
@@ -136,6 +136,86 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "現在の温度(℃)",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "text": {},
+        "textMode": "auto"
+      },
+      "pluginVersion": "7.5.10",
+      "targets": [
+        {
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  n.preset_temp as preset\nFROM temperature as t\nLEFT JOIN node AS n ON n.sensor_mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time ASC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "temp"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "temperature",
+          "timeColumn": "sent_at",
+          "timeColumnType": "timestamp",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "設定温度(℃)",
       "transparent": true,
       "type": "stat"
     },
@@ -220,7 +300,6 @@
       "pluginVersion": "7.5.10",
       "targets": [
         {
-          "$$hashKey": "object:683",
           "aggregation": "Last",
           "decimals": 2,
           "displayAliasType": "Warning / Critical",
@@ -507,5 +586,5 @@
   "timezone": "",
   "title": "小鳥ケージ状態",
   "uid": "HqDs-4_7k",
-  "version": 18
+  "version": 20
 }
