@@ -49,11 +49,13 @@ services:
     build:
       context: ./driver
       dockerfile: Dockerfile
-    tty: true
-
+    ports:
+      - 5050:5050
     environment:
       TZ: Asia/Tokyo
+      DOCKER: 1
     env_file: ./driver/.develop.env
+    tty: true
     volumes:
       - ./driver:/var/driver
     # command: python3 /var/app/main.py
