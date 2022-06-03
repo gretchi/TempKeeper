@@ -54,7 +54,6 @@ services:
     environment:
       TZ: Asia/Tokyo
       DOCKER: 1
-    env_file: ./driver/.develop.env
     tty: true
     volumes:
       - ./driver:/var/driver

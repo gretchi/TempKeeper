@@ -4,7 +4,7 @@ import logging
 
 import helper
 
-DEVELOP = os.environ.get("DEVELOP")
+DOCKER = os.environ.get("DOCKER")
 
 DUMMY_SEARCH_RESULT = """Searching...
 startDiscovery({
@@ -26,11 +26,13 @@ TPLINK_SMART_PLUG_CONTROL_PORT = 9999
 STATE_OFF = 0
 STATE_ON = 1
 
-def is_develop():
-    return DEVELOP == "1"
+
+def is_docker():
+    return DOCKER == "1"
+
 
 def search():
-    if is_develop():
+    if is_docker():
         stdout = DUMMY_SEARCH_RESULT
     else:
         stdout = helper.syscmd.execute(
@@ -67,10 +69,10 @@ def search():
             "alias": alias
         }
 
-        logging.info(f"Discover tplink smart plug: mac: {mac}, ip_addr: {ip_addr}, alias: {alias}")
+        logging.info(
+            f"Discover tplink smart plug: mac: {mac}, ip_addr: {ip_addr}, alias: {alias}")
 
     return search_result
-
 
 
 def set_plug_state(state, host, port=TPLINK_SMART_PLUG_CONTROL_PORT):
@@ -79,7 +81,7 @@ def set_plug_state(state, host, port=TPLINK_SMART_PLUG_CONTROL_PORT):
     elif state == STATE_ON:
         cmd = '{"system":{"set_relay_state":{"state":1}}}'
 
-    if is_develop():
+    if is_docker():
         return
 
     helper.syscmd.execute(
