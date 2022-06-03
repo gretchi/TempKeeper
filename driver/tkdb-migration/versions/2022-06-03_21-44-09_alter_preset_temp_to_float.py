@@ -19,10 +19,10 @@ depends_on = None
 def upgrade():
     conn = op.get_bind()
     conn.execute(
-        "ALTER TABLE node ALTER COLUMN preset_temp TYPE DOUBLE PRECISION NOT NULL DEFAULT 24.0")
+        "ALTER TABLE node ALTER COLUMN preset_temp TYPE FLOAT8")
 
 
 def downgrade():
     conn = op.get_bind()
     conn.execute(
-        "ALTER TABLE node ALTER COLUMN preset_temp TYPE INTEGER NOT NULL DEFAULT 24")
+        "ALTER TABLE node ALTER COLUMN preset_temp TYPE INTEGER")
