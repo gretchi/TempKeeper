@@ -33,6 +33,7 @@
       }
     ]
   },
+  "description": "",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -50,7 +51,7 @@
       },
       "id": 6,
       "panels": [],
-      "title": "Row title",
+      "title": "状態サマリ",
       "type": "row"
     },
     {
@@ -114,7 +115,7 @@
           "hide": false,
           "metricColumn": "mac",
           "rawQuery": true,
-          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  t.temp as temperature\nFROM temperature as t\nLEFT JOIN node AS n ON n.mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time ASC",
+          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  t.temp as temperature\nFROM temperature as t\nLEFT JOIN node AS n ON n.sensor_mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time ASC",
           "refId": "A",
           "select": [
             [
@@ -158,7 +159,7 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 9,
+        "h": 8,
         "w": 24,
         "x": 0,
         "y": 7
@@ -204,7 +205,7 @@
           "hide": false,
           "metricColumn": "mac",
           "rawQuery": true,
-          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  t.temp as temperature\nFROM temperature as t\nINNER JOIN node AS n ON n.mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time DESC",
+          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  t.temp as temperature\nFROM temperature as t\nINNER JOIN node AS n ON n.sensor_mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time DESC",
           "refId": "A",
           "select": [
             [
@@ -279,6 +280,143 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "decimals": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "hiddenSeries": false,
+      "id": 8,
+      "interval": null,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "maxDataPoints": 3,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.10",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "$$hashKey": "object:683",
+          "aggregation": "Last",
+          "decimals": 2,
+          "displayAliasType": "Warning / Critical",
+          "displayType": "Regular",
+          "displayValueWithAlias": "Never",
+          "format": "time_series",
+          "group": [],
+          "metricColumn": "none",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  p.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  p.status as status\nFROM plug_state as p\nINNER JOIN node AS n ON n.plug_mac = p.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time DESC",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "temp"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "temperature",
+          "timeColumn": "sent_at",
+          "timeColumnType": "timestamp",
+          "units": "none",
+          "valueHandler": "Number Threshold",
+          "where": [
+            {
+              "name": "$__timeFilter",
+              "params": [],
+              "type": "macro"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "ヒーター",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:242",
+          "decimals": 0,
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "max": "1",
+          "min": "0",
+          "show": false
+        },
+        {
+          "$$hashKey": "object:243",
+          "decimals": null,
+          "format": "none",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
       "decimals": 1,
       "fieldConfig": {
         "defaults": {},
@@ -287,10 +425,10 @@
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 21
       },
       "hiddenSeries": false,
       "id": 3,
@@ -333,7 +471,7 @@
           "hide": false,
           "metricColumn": "mac",
           "rawQuery": true,
-          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  t.humidity as humidity\nFROM temperature as t\nINNER JOIN node AS n ON n.mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time DESC",
+          "rawSql": "SELECT\n  t.sent_at AS \"time\",\n  n.location_name AS \"metric\",\n  t.humidity as humidity\nFROM temperature as t\nINNER JOIN node AS n ON n.sensor_mac = t.mac\nWHERE\n  $__timeFilter(sent_at)\nORDER BY n.id ASC, time DESC",
           "refId": "A",
           "select": [
             [
@@ -415,7 +553,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "小鳥ケージ状態 Copy",
+  "title": "小鳥ケージ状態",
   "uid": "HqDs-4_7k",
-  "version": 1
+  "version": 12
 }
