@@ -25,7 +25,7 @@ def set_preset_temp():
         if prefix != "preset_temp":
             continue
 
-        model.set_preset_temp(int(idx), float(v))
+        model.set_preset_temp(idx, v)
 
     model.commit()
     model.close()
