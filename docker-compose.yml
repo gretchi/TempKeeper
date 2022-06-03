@@ -50,7 +50,7 @@ services:
       context: ./driver
       dockerfile: Dockerfile
     ports:
-      - 5050:5050
+      - 8888:8888
     environment:
       TZ: Asia/Tokyo
       DOCKER: 1
