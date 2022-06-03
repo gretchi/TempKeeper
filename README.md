@@ -16,6 +16,9 @@ docker-compose exec driver alembic revision -m "revision_name"
 ## script
 
 ```bash
+# driver
+docker-compose exec driver /bin/bash -l
+
 # temp_collector
 docker-compose exec driver python3 /var/driver/temp_collector.py
 
