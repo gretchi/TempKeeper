@@ -5,7 +5,7 @@ Wants=graphical.target
 
 [Service]
 Environment="DISPLAY=:0.0"
-ExecStart=chromium-browser http://10.227.7.8:3000/d/HqDs-4_7k/xiao-niao-kezizhuang-tai?orgId=1&refresh=1m&from=now-24h&to=now&kiosk --kiosk
+ExecStart=chromium http://10.227.7.8:3000/d/HqDs-4_7k/xiao-niao-kezizhuang-tai?orgId=1&refresh=1m&from=now-24h&to=now&kiosk --kiosk
 Type=simple
 User=gretel
 Group=gretel
