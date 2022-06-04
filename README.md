@@ -65,3 +65,17 @@ docker-compose exec driver alembic upgrade head
 - 3-じん: 10:27:F5:22:08:E7
 - 4-きな: 0C:80:63:04:FD:0B
 - 5-ゆき: 10:27:F5:22:08:12
+
+## 実行マシン
+
+### DB･Webサーバ
+
+gn-sv-08
+
+### センサー情報収集
+
+gn-sv-11
+
+### Viewer
+
+gn-cl-05
