@@ -10,11 +10,11 @@ import helper
 import batch
 import plugwork
 
+
 class PlugController(batch.BatchBase):
     def __init__(self):
         self.__file__ = __file__
         super().__init__()
-
 
     def main(self):
         self.search()
@@ -46,9 +46,7 @@ class PlugController(batch.BatchBase):
             else:
                 self.model.commit()
 
-
         return 0
-
 
     def search(self):
         search_result = plugwork.search()

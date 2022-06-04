@@ -4,6 +4,7 @@ import getpass
 import logging
 
 from pprint import pprint
+from re import T
 
 import helper
 
@@ -12,11 +13,11 @@ from btwork import BTWork
 
 FAIL_LIFE = 4
 
+
 class TempCollector(batch.BatchBase):
     def __init__(self):
         self.__file__ = __file__
         super().__init__()
-
 
     def main(self):
         life = FAIL_LIFE
@@ -25,10 +26,16 @@ class TempCollector(batch.BatchBase):
             mac = row["sensor_mac"]
             location_name = row["location_name"]
 
-            logging.info(f"Scan start location_name: {location_name}, mac: {mac}")
+            logging.info(
+                f"Scan start location_name: {location_name}, mac: {mac}")
             btwork = BTWork(mac)
             try:
                 mac, temp, humidity, battery, ts = btwork.scan()
+
+                if temp < 0 or humidity < 0:
+                    # 不具合対策
+                    continue
+
                 self.model.add_temperature(mac, temp, humidity, battery, ts)
             except Exception as e:
                 logging.error(e)
@@ -42,9 +49,7 @@ class TempCollector(batch.BatchBase):
 
             logging.info("end")
 
-
         return 0
-
 
 
 if __name__ == "__main__":
