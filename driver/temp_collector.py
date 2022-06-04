@@ -33,7 +33,7 @@ class TempCollector(batch.BatchBase):
                 mac, temp, humidity, battery, ts = btwork.scan()
 
                 if temp < 0 or humidity < 0:
-                    # 不具合対策
+                    # 稀に値がマイナスになる場合の対応
                     continue
 
                 self.model.add_temperature(mac, temp, humidity, battery, ts)
