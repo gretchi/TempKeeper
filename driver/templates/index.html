@@ -23,14 +23,16 @@
             <thead>
                 <tr>
                     <th scope="col">場所</th>
-                    <th scope="col">温度(℃)</th>
+                    <th scope="col">設定温度</th>
+                    <th scope="col">センサMACアドレス</th>
+                    <th scope="col">プラグMACアドレス</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in nodes %}
                 <tr>
                     <td scope="row">{{ row.location_name }}</td>
-                    <td>{{ row.preset_temp }}</td>
+                    <td>{{ row.preset_temp }}℃</td>
                     <td>{{ row.sensor_mac }}</td>
                     <td>{{ row.plug_mac }}</td>
                 </tr>
@@ -38,7 +40,6 @@
             </tbody>
         </table>
 
-        <h3 class="text-muted">温度設定</h3>
         <h4 class="text-muted">新しい設定</h4>
         <form action="/set-preset-temp" method="POST" enctype="multipart/form-data">
             {% for row in nodes %}
