@@ -1,4 +1,4 @@
-"""add_sensor
+"""alter_node
 
 Revision ID: 8e07987f6703
 Revises: af2b893367af
@@ -18,10 +18,11 @@ depends_on = None
 
 def upgrade():
     conn = op.get_bind()
-    conn.execute(
-        "INSERT INTO node(sensor_mac, plug_mac, preset_temp, location_name) VALUES ('C3:FF:42:9F:D2:0A', NULL, 0, 'リビング');"
-    )
+    conn.execute("ALTER TABLE node ALTER COLUMN sensor_mac DROP NOT NULL")
+    conn.execute("ALTER TABLE node ALTER COLUMN plug_mac DROP NOT NULL")
 
 
 def downgrade():
-    pass
+    conn = op.get_bind()
+    conn.execute("ALTER TABLE node ALTER COLUMN sensor_mac SET NOT NULL")
+    conn.execute("ALTER TABLE node ALTER COLUMN plug_mac SET NOT NULL")
