@@ -33,7 +33,7 @@ class Model(object):
             return results
 
     def get_nodes(self):
-        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node"
+        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY id ASC"
         return self.dict_fetch_all(query)
 
     def get_nodes_order_by_random(self):
