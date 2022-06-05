@@ -55,6 +55,12 @@ class Model(object):
             query = "UPDATE node SET preset_temp = %s WHERE id = %s"
             cursor.execute(query, (preset_temp, id))
 
+    def set_node(self, id, sensor_mac, plug_mac, preset_temp, location_name):
+        with self.conn.cursor() as cursor:
+            query = "UPDATE node SET sensor_mac = %s, plug_mac = %s, preset_temp = %s, location_name = %s WHERE id = %s"
+            cursor.execute(query, (sensor_mac, plug_mac,
+                           preset_temp, location_name, id))
+
     def get_temperature_one(self, mac):
         with self.conn.cursor() as cursor:
             query = "SELECT mac, temp, humidity, battery, sent_at FROM temperature  WHERE mac = %s ORDER BY sent_at DESC LIMIT 1"
