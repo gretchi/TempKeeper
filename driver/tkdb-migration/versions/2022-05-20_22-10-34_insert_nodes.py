@@ -31,8 +31,9 @@ def upgrade():
         "INSERT INTO node(sensor_mac, plug_mac, preset_temp, location_name) VALUES ('DC:08:9A:D2:9B:8A', '0C:80:63:04:FD:0B', 20, 'きなこ');"
     )
     conn.execute(
-        "INSERT INTO node(sensor_mac, plug_mac, preset_temp, location_name) VALUES ('C3:FF:42:9F:D2:0A', '10:27:F5:22:08:12', 30, 'ゆき');"
+        "INSERT INTO node(sensor_mac, plug_mac, preset_temp, location_name) VALUES ('C2:B9:B2:F8:24:12', '10:27:F5:22:08:12', 30, 'ゆき');"
     )
+
 
 def downgrade():
     pass
