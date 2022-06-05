@@ -57,6 +57,7 @@ docker-compose exec driver alembic upgrade head
 - 3-じん: FD:6B:1D:D9:15:56
 - 4-きな: DC:08:9A:D2:9B:8A
 - 5-ゆき: C2:B9:B2:F8:24:12
+- 6-リビング: C3:FF:42:9F:D2:0A
 
 ## plugs
 
