@@ -28,6 +28,9 @@ def set_node():
         if idx not in form_dict:
             form_dict[idx] = {}
 
+        if v.lower() == "none" or v.lower() == "null":
+            v = None
+
         form_dict[idx][prop_name] = v
 
     for idx, row in form_dict.items():
