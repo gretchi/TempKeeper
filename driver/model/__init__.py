@@ -33,7 +33,11 @@ class Model(object):
             return results
 
     def get_nodes(self):
-        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node"
+        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY id ASC"
+        return self.dict_fetch_all(query)
+
+    def get_nodes_order_by_random(self):
+        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY RANDOM()"
         return self.dict_fetch_all(query)
 
     def add_temperature(self, mac, temp, humidity, battery, sent_at):
@@ -45,6 +49,17 @@ class Model(object):
         with self.conn.cursor() as cursor:
             query = "UPDATE node SET plug_ip = %s WHERE plug_mac = %s"
             cursor.execute(query, (plug_ip, plug_mac))
+
+    def set_preset_temp(self, id, preset_temp):
+        with self.conn.cursor() as cursor:
+            query = "UPDATE node SET preset_temp = %s WHERE id = %s"
+            cursor.execute(query, (preset_temp, id))
+
+    def set_node(self, id, sensor_mac, plug_mac, preset_temp, location_name):
+        with self.conn.cursor() as cursor:
+            query = "UPDATE node SET sensor_mac = %s, plug_mac = %s, preset_temp = %s, location_name = %s WHERE id = %s"
+            cursor.execute(query, (sensor_mac, plug_mac,
+                           preset_temp, location_name, id))
 
     def get_temperature_one(self, mac):
         with self.conn.cursor() as cursor:

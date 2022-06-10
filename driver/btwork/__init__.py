@@ -9,7 +9,7 @@ from .blesensor import Sensor
 
 import helper
 
-DEVELOP = os.environ.get("DEVELOP")
+DOCKER = os.environ.get("DOCKER")
 
 
 class BTWork(object):
@@ -18,7 +18,7 @@ class BTWork(object):
         self._dummy_device = {}
 
     def scan(self):
-        if DEVELOP == "1":
+        if DOCKER == "1":
             temp, humidity, battery = self.dummy_device_function(self.mac)
 
         else:

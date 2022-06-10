@@ -23,12 +23,12 @@ def upgrade():
 
     conn.execute(
         """CREATE TABLE temperature (
-        id INT NOT NULL DEFAULT nextval('temperature_id_seq'),
+        id INTEGER NOT NULL DEFAULT nextval('temperature_id_seq'),
         mac VARCHAR(32) NOT NULL,
         temp FLOAT NOT NULL,
         humidity FLOAT NOT NULL,
-        battery INT NOT NULL,
-        sent_at TIMESTAMP NOT NULL,
+        battery INTEGER NOT NULL,
+        sent_at TIMESTAMP WITH TIME ZONE NOT NULL,
         create_at TIMESTAMP NULL DEFAULT now(),
         PRIMARY KEY (id));
     """
@@ -39,9 +39,9 @@ def upgrade():
 
     conn.execute(
         """CREATE TABLE node (
-            id INT NOT NULL DEFAULT nextval('node_id_seq'),
-            sensor_mac VARCHAR(32) NOT NULL,
-            plug_mac VARCHAR(32) NOT NULL,
+            id INTEGER NOT NULL DEFAULT nextval('node_id_seq'),
+            sensor_mac VARCHAR(32) UNIQUE NOT NULL,
+            plug_mac VARCHAR(32) UNIQUE NOT NULL,
             plug_ip VARCHAR(32) DEFAULT NULL,
             preset_temp INTEGER NOT NULL DEFAULT 24,
             location_name VARCHAR(64) NOT NULL,
@@ -53,16 +53,14 @@ def upgrade():
 
     conn.execute(
         """CREATE TABLE plug_state (
-        id INT NOT NULL DEFAULT nextval('plug_state_id_seq'),
+        id INTEGER NOT NULL DEFAULT nextval('plug_state_id_seq'),
         mac VARCHAR(32) NOT NULL,
         status INTEGER NOT NULL,
-        sent_at TIMESTAMP NOT NULL,
+        sent_at TIMESTAMP WITH TIME ZONE NOT NULL,
         create_at TIMESTAMP NULL DEFAULT now(),
         PRIMARY KEY (id));
     """
     )
-
-
 
 
 def downgrade():
