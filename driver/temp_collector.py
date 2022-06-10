@@ -32,7 +32,7 @@ class TempCollector(batch.BatchBase):
             try:
                 mac, temp, humidity, battery, ts = btwork.scan()
 
-                if temp < 0 or humidity < 0:
+                if temp < 0 or temp > 42:
                     # 稀に値がマイナスになる場合の対応
                     continue
 
