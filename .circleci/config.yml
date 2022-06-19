@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   deploy-web-db:
-    machine:
+    docker:
       image: cimg/base:stable
     steps:
       - add_ssh_keys:
@@ -12,7 +12,7 @@ jobs:
       cd ~/Git/TempKeeper && git pull && sudo systemctl restart TempKeeper.service \""
 
   deploy-driver:
-    machine:
+    docker:
       image: cimg/base:stable
     steps:
       - add_ssh_keys:
@@ -23,7 +23,7 @@ jobs:
       cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperAdminService.service \""
 
   deploy-viewer:
-    machine:
+    docker:
       image: cimg/base:stable
     steps:
       - add_ssh_keys:
