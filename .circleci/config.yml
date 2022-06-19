@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   deploy-web-db:
     machine:
-      image: circleci/classic:edge
+      image: cimg/base:stable
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -13,7 +13,7 @@ jobs:
 
   deploy-driver:
     machine:
-      image: circleci/classic:edge
+      image: cimg/base:stable
     steps:
       - add_ssh_keys:
           fingerprints:
@@ -24,7 +24,7 @@ jobs:
 
   deploy-viewer:
     machine:
-      image: circleci/classic:edge
+      image: cimg/base:stable
     steps:
       - add_ssh_keys:
           fingerprints:
