@@ -6,7 +6,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - "b9:b7:30:fe:94:20:69:27:5b:b3:4c:aa:4e:6e:86:16"
+          - ${KEY_FINGERPRINT}
       - run: "ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
       \"ssh gn-sv-08 \
       cd ~/Git/TempKeeper && git pull && sudo systemctl restart TempKeeper.service \""
@@ -17,7 +17,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - "b9:b7:30:fe:94:20:69:27:5b:b3:4c:aa:4e:6e:86:16"
+          - ${KEY_FINGERPRINT}
       - run: "ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
       \"ssh gn-sv-11 \
       cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperAdminService.service \""
@@ -28,7 +28,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - "b9:b7:30:fe:94:20:69:27:5b:b3:4c:aa:4e:6e:86:16"
+          - ${KEY_FINGERPRINT}
       - run: "ssh ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
       \"ssh gn-cl-05 \
       cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service \""
