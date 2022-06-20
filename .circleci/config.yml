@@ -36,7 +36,7 @@ jobs:
       - run:
           command: "ssh -o StrictHostKeyChecking=no ${RELAY_USER}@${RELAY_HOST} -p ${RELAY_SSH_PORT} \
           \"ssh gn-cl-05 \
-          'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service'\""
+          'sleep 15s && cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service'\""
           no_output_timeout: 10m
 
 workflows:
@@ -52,6 +52,9 @@ workflows:
             branches:
               only: main
       - deploy-viewer:
+          requires:
+            - deploy-web-db
+            - deploy-driver
           filters:
             branches:
               only: main
