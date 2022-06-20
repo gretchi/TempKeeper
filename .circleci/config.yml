@@ -7,9 +7,11 @@ jobs:
       - add_ssh_keys:
           fingerprints:
           - ${KEY_FINGERPRINT}
-      - run: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
-      \"ssh gn-sv-08 \
-      \"cd ~/Git/TempKeeper && git pull && sudo systemctl restart TempKeeper.service\"\""
+      - run:
+          command: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
+          \"ssh gn-sv-08 \
+          'cd ~/Git/TempKeeper && git pull && sudo systemctl restart TempKeeper.service'\""
+          no_output_timeout: 10m
 
   deploy-driver:
     docker:
@@ -18,9 +20,11 @@ jobs:
       - add_ssh_keys:
           fingerprints:
           - ${KEY_FINGERPRINT}
-      - run: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
-      \"ssh gn-sv-11 \
-      'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperAdminService.service'\""
+      - run:
+          command: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
+          \"ssh gn-sv-11 \
+          'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperAdminService.service'\""
+          no_output_timeout: 10m
 
   deploy-viewer:
     docker:
@@ -29,9 +33,11 @@ jobs:
       - add_ssh_keys:
           fingerprints:
           - ${KEY_FINGERPRINT}
-      - run: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
-      \"ssh gn-cl-05 \
-      'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service'\""
+      - run:
+          command: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
+          \"ssh gn-cl-05 \
+          'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service'\""
+          no_output_timeout: 10m
 
 workflows:
   version: 2
