@@ -6,9 +6,9 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - ${KEY_FINGERPRINT}
+          - ${RELAY_FINGERPRINT}
       - run:
-          command: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
+          command: "ssh -o StrictHostKeyChecking=no ${RELAY_USER}@${RELAY_HOST} -p ${RELAY_SSH_PORT} \
           \"ssh gn-sv-08 \
           'cd ~/Git/TempKeeper && git pull && sudo systemctl restart TempKeeper.service'\""
           no_output_timeout: 10m
@@ -19,9 +19,9 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - ${KEY_FINGERPRINT}
+          - ${RELAY_FINGERPRINT}
       - run:
-          command: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
+          command: "ssh -o StrictHostKeyChecking=no ${RELAY_USER}@${RELAY_HOST} -p ${RELAY_SSH_PORT} \
           \"ssh gn-sv-11 \
           'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperAdminService.service'\""
           no_output_timeout: 10m
@@ -32,9 +32,9 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-          - ${KEY_FINGERPRINT}
+          - ${RELAY_FINGERPRINT}
       - run:
-          command: "ssh -o StrictHostKeyChecking=no ${USER_NAME}@${HOST_NAME} -p ${SSH_PORT} \
+          command: "ssh -o StrictHostKeyChecking=no ${RELAY_USER}@${RELAY_HOST} -p ${RELAY_SSH_PORT} \
           \"ssh gn-cl-05 \
           'cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service'\""
           no_output_timeout: 10m
