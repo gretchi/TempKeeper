@@ -5,7 +5,7 @@ Wants=graphical.target
 
 [Service]
 Environment="DISPLAY=:0.0"
-ExecStart=chromium http://10.227.7.8:3000/d/HqDs-4_7k/xiao-niao-kezizhuang-tai?orgId=1&refresh=30s&kiosk=tv&from=now-24h&to=now  --kiosk
+ExecStart=/home/gretel/TempKeeper/viewer/open-chromium.sh
 Type=simple
 User=gretel
 Group=gretel
