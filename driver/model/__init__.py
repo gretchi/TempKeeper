@@ -51,7 +51,13 @@ class Model(object):
                         plug_state AS p
                     WHERE n.plug_mac = p.mac
                     ORDER BY p.id DESC LIMIT 1
-                ) AS status
+                ) AS status,
+                (
+                    SELECT t.temp
+                    FROM temperature as t
+                    WHERE t.mac = n.sensor_mac
+                    ORDER BY sent_at DESC LIMIT 1
+                ) as current_temp
             FROM node AS n
             ORDER BY id ASC"""
         return self.dict_fetch_all(query)

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
+import datetime
 from posixpath import split
-from flask import Flask, render_template, request, redirect
 from pprint import pprint
+
+from flask import Flask, render_template, request, redirect
 
 from model import Model
 
@@ -12,9 +14,18 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     model = Model()
-    nodes = model.get_nodes_summary()
+    nodes = model.get_nodes()
     model.close()
     return render_template('index.html', nodes=nodes)
+
+
+@app.route('/view')
+def view():
+    model = Model()
+    nodes = model.get_nodes_summary()
+    model.close()
+    now = datetime.datetime.now()
+    return render_template('view.html', nodes=nodes, date=now.strftime("%y/%m/%d(%a)"), time=now.strftime("%H:%M:%S"))
 
 
 @app.route('/set-node', methods=['POST'])

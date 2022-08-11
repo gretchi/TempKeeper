@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TempKeeper - Admin</title>
+
+
+    <style>
+        html {
+            margin-top: 12px;
+            margin-left: 12px;
+        }
+
+        body {
+            color: black;
+            background-color: white;
+            font-family: "ＭＳ Ｐゴシック", "MS PGothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
+            font-size: 14px;
+            line-height: 18px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: unset;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <p>{{date}} {{time}}</p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">キー</th>
+                    <th scope="col">設置場所</th>
+                    <th scope="col">設定温度</th>
+                    <th scope="col">現在の温度</th>
+                    <th scope="col">センサMACアドレス</th>
+                    <th scope="col">プラグMACアドレス</th>
+                    <th scope="col">主ヒーター</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in nodes %}
+                <tr>
+                    <td scope="row">{{ row.id }}</td>
+                    <td>{{ row.location_name }}</td>
+                    <td>{{ row.preset_temp }}℃</td>
+                    <td>{{ row.current_temp }}℃</td>
+                    <td>{{ row.sensor_mac }}</td>
+                    <td>{{ row.plug_mac }}</td>
+
+                    {% if row.status == 1 %}
+                    <td>運転中</td>
+
+                    {% else %}
+                    <td>停止</td>
+
+                    {% endif %}
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+    </div>
+</body>
+
+</html>
