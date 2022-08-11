@@ -36,6 +36,26 @@ class Model(object):
         query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY id ASC"
         return self.dict_fetch_all(query)
 
+    def get_nodes_summary(self):
+        query = """SELECT
+                n.id,
+                n.sensor_mac,
+                n.plug_mac,
+                n.plug_ip,
+                n.preset_temp,
+                n.location_name,
+                (
+                    SELECT
+                        p.status
+                    FROM
+                        plug_state AS p
+                    WHERE n.plug_mac = p.mac
+                    ORDER BY p.id DESC LIMIT 1
+                ) AS status
+            FROM node AS n
+            ORDER BY id ASC"""
+        return self.dict_fetch_all(query)
+
     def get_nodes_order_by_random(self):
         query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY RANDOM()"
         return self.dict_fetch_all(query)

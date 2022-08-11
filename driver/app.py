@@ -12,7 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     model = Model()
-    nodes = model.get_nodes()
+    nodes = model.get_nodes_summary()
     model.close()
     return render_template('index.html', nodes=nodes)
 
