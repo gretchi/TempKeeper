@@ -2,6 +2,7 @@
 
 from posixpath import split
 from pprint import pprint
+import json
 
 from flask import Flask, render_template, request, redirect, jsonify
 
@@ -28,7 +29,7 @@ def get_nodes():
     return jsonify(nodes)
 
 
-@app.route('/api/node/<node_id>')
+@app.route('/api/node/<node_id>', methods=['GET'])
 def get_node(node_id):
     model = Model()
     node = model.get_node_summary(node_id)[0]
@@ -37,14 +38,22 @@ def get_node(node_id):
     return jsonify(node)
 
 
-@app.route('/api/nodes', methods=['POST'])
-def post_nodes():
-    # model = Model()
-    # nodes = model.get_nodes_summary()
-    # model.close()
+@app.route('/api/node/<node_id>', methods=['POST'])
+def post_node(node_id):
+    data = request.data.decode('utf-8')
+    data = json.loads(data)
+    auto_control = data["auto_control"]
+    preset_temp = data["preset_temp"]
 
-    # return jsonify(nodes)
-    return ""
+    model = Model()
+    model.set_node_auto_control_and_preset_temp(
+        node_id, auto_control, preset_temp)
+    node = model.get_node_summary(node_id)[0]
+
+    model.commit()
+    model.close()
+
+    return jsonify(node)
 
 
 @app.route('/set-node', methods=['POST'])

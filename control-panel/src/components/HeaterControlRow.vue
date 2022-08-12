@@ -6,7 +6,13 @@
 
     <!-- Arrow down -->
     <div class="col-1 col-parent">
-      <button v-on:click="presetTemp -= 0.5" class="button el">
+      <button
+        v-on:click="
+          presetTemp -= 0.5;
+          setNode();
+        "
+        class="button el"
+      >
         <i class="bi bi-caret-down-fill"></i>
       </button>
     </div>
@@ -16,8 +22,8 @@
       <p
         class="el bg-blue"
         :class="{
-          'bg-blue': autoCtrl === true,
-          'bg-black': autoCtrl === false,
+          'bg-blue': autoCtrl,
+          'bg-black': !autoCtrl,
         }"
       >
         {{ presetTemp.toFixed(1) }}℃
@@ -26,7 +32,13 @@
 
     <!-- Arrow up -->
     <div class="col-1 col-parent">
-      <button v-on:click="presetTemp += 0.5" class="button el">
+      <button
+        v-on:click="
+          presetTemp += 0.5;
+          setNode();
+        "
+        class="button el"
+      >
         <i class="bi bi-caret-up-fill"></i>
       </button>
     </div>
@@ -48,11 +60,14 @@
     <!-- 自動停止ボタン -->
     <div class="col-2 col-parent">
       <button
-        v-on:click="autoCtrl = false"
+        v-on:click="
+          autoCtrl = 0;
+          setNode();
+        "
         class="button el"
         :class="{
-          'bg-gray': autoCtrl === true,
-          'bg-yellow': autoCtrl === false,
+          'bg-gray': autoCtrl,
+          'bg-yellow': !autoCtrl,
         }"
       >
         停止
@@ -62,11 +77,14 @@
     <!-- 自動ボタン -->
     <div class="col-2 col-parent">
       <button
-        v-on:click="autoCtrl = true"
+        v-on:click="
+          autoCtrl = 1;
+          setNode();
+        "
         class="button el"
         :class="{
-          'bg-green': autoCtrl === true,
-          'bg-gray': autoCtrl === false,
+          'bg-green': autoCtrl,
+          'bg-gray': !autoCtrl,
         }"
       >
         自動
@@ -86,7 +104,7 @@ export default {
     return {
       locationName: "",
       presetTemp: 20.0,
-      autoCtrl: false,
+      autoCtrl: 0,
       plugStatus: 0,
     };
   },
@@ -97,11 +115,28 @@ export default {
         this.locationName = data.location_name;
         this.presetTemp = data.preset_temp;
         this.plugStatus = data.status;
+        this.autoCtrl = data.auto_control;
       });
+    },
+    setNode: function () {
+      axios
+        .post("/api/node/" + this.nodeId, {
+          auto_control: this.autoCtrl,
+          preset_temp: this.presetTemp,
+        })
+        .then((res) => {
+          const data = res.data;
+          this.locationName = data.location_name;
+          this.plugStatus = data.status;
+          this.autoCtrl = data.auto_control;
+        });
     },
   },
   mounted: function () {
     this.getNode();
+    setInterval(() => {
+      this.getNode();
+    }, 5000);
   },
 };
 </script>

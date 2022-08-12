@@ -39,11 +39,12 @@ class Model(object):
     def get_nodes_summary(self):
         query = """SELECT
                 n.id,
+                n.location_name,
                 n.sensor_mac,
                 n.plug_mac,
                 n.plug_ip,
                 n.preset_temp,
-                n.location_name,
+                n.auto_control,
                 (
                     SELECT
                         p.status
@@ -65,11 +66,12 @@ class Model(object):
     def get_node_summary(self, node_id):
         query = """SELECT
                 n.id,
+                n.location_name,
                 n.sensor_mac,
                 n.plug_mac,
                 n.plug_ip,
                 n.preset_temp,
-                n.location_name,
+                n.auto_control,
                 (
                     SELECT
                         p.status
@@ -113,6 +115,11 @@ class Model(object):
             query = "UPDATE node SET sensor_mac = %s, plug_mac = %s, preset_temp = %s, location_name = %s WHERE id = %s"
             cursor.execute(query, (sensor_mac, plug_mac,
                            preset_temp, location_name, id))
+
+    def set_node_auto_control_and_preset_temp(self, id, auto_control, preset_temp):
+        with self.conn.cursor() as cursor:
+            query = "UPDATE node SET auto_control = %s, preset_temp = %s WHERE id = %s"
+            cursor.execute(query, (auto_control, preset_temp, id))
 
     def get_temperature_one(self, mac):
         with self.conn.cursor() as cursor:
