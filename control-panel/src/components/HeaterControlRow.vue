@@ -136,7 +136,7 @@ export default {
     this.getNode();
     setInterval(() => {
       this.getNode();
-    }, 5000);
+    }, 15000);
   },
 };
 </script>
