@@ -24,6 +24,7 @@ class PlugController(batch.BatchBase):
             plug_mac = row["plug_mac"]
             plug_ip = row["plug_ip"]
             preset_temp = row["preset_temp"]
+            auto_control = row["auto_control"]
             location_name = row["location_name"]
 
             if plug_ip is None:
@@ -35,6 +36,10 @@ class PlugController(batch.BatchBase):
             if preset_temp > current_temp:
                 state = plugwork.STATE_ON
             else:
+                state = plugwork.STATE_OFF
+
+            if auto_control == 0:
+                # 手動停止の場合､常にOFF
                 state = plugwork.STATE_OFF
 
             try:

@@ -18,9 +18,9 @@ depends_on = None
 
 def upgrade():
     conn = op.get_bind()
-    conn.execute(
-        "INSERT INTO node(sensor_mac, plug_mac, preset_temp, location_name) VALUES ('C3:FF:42:9F:D2:0A', NULL, 0, 'リビング');"
-    )
+    # conn.execute(
+    #     "INSERT INTO node(sensor_mac, plug_mac, preset_temp, location_name) VALUES ('C3:FF:42:9F:D2:0A', NULL, 0, 'リビング');"
+    # )
 
 
 def downgrade():

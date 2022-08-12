@@ -33,8 +33,63 @@ class Model(object):
             return results
 
     def get_nodes(self):
-        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY id ASC"
+        query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, auto_control, location_name FROM node ORDER BY id ASC"
         return self.dict_fetch_all(query)
+
+    def get_nodes_summary(self):
+        query = """SELECT
+                n.id,
+                n.location_name,
+                n.sensor_mac,
+                n.plug_mac,
+                n.plug_ip,
+                n.preset_temp,
+                n.auto_control,
+                (
+                    SELECT
+                        p.status
+                    FROM
+                        plug_state AS p
+                    WHERE n.plug_mac = p.mac
+                    ORDER BY p.id DESC LIMIT 1
+                ) AS status,
+                (
+                    SELECT t.temp
+                    FROM temperature as t
+                    WHERE t.mac = n.sensor_mac
+                    ORDER BY sent_at DESC LIMIT 1
+                ) as current_temp
+            FROM node AS n
+            ORDER BY id ASC"""
+        return self.dict_fetch_all(query)
+
+    def get_node_summary(self, node_id):
+        query = """SELECT
+                n.id,
+                n.location_name,
+                n.sensor_mac,
+                n.plug_mac,
+                n.plug_ip,
+                n.preset_temp,
+                n.auto_control,
+                (
+                    SELECT
+                        p.status
+                    FROM
+                        plug_state AS p
+                    WHERE n.plug_mac = p.mac
+                    ORDER BY p.id DESC LIMIT 1
+                ) AS status,
+                (
+                    SELECT t.temp
+                    FROM temperature as t
+                    WHERE t.mac = n.sensor_mac
+                    ORDER BY sent_at DESC LIMIT 1
+                ) as current_temp
+            FROM node AS n
+            WHERE n.id = %s
+            ORDER BY id ASC LIMIT 1"""
+        return self.dict_fetch_all(query, (node_id, ))
 
     def get_nodes_order_by_random(self):
         query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY RANDOM()"
@@ -60,6 +115,11 @@ class Model(object):
             query = "UPDATE node SET sensor_mac = %s, plug_mac = %s, preset_temp = %s, location_name = %s WHERE id = %s"
             cursor.execute(query, (sensor_mac, plug_mac,
                            preset_temp, location_name, id))
+
+    def set_node_auto_control_and_preset_temp(self, id, auto_control, preset_temp):
+        with self.conn.cursor() as cursor:
+            query = "UPDATE node SET auto_control = %s, preset_temp = %s WHERE id = %s"
+            cursor.execute(query, (auto_control, preset_temp, id))
 
     def get_temperature_one(self, mac):
         with self.conn.cursor() as cursor:

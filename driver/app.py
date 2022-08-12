@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
 from posixpath import split
-from flask import Flask, render_template, request, redirect
 from pprint import pprint
+import json
+
+from flask import Flask, render_template, request, redirect, jsonify
 
 from model import Model
+from helper import shaping
 
 app = Flask(__name__)
 
@@ -15,6 +18,42 @@ def index():
     nodes = model.get_nodes()
     model.close()
     return render_template('index.html', nodes=nodes)
+
+
+@app.route('/api/nodes')
+def get_nodes():
+    model = Model()
+    nodes = model.get_nodes_summary()
+    model.close()
+
+    return jsonify(nodes)
+
+
+@app.route('/api/node/<node_id>', methods=['GET'])
+def get_node(node_id):
+    model = Model()
+    node = model.get_node_summary(node_id)[0]
+    model.close()
+
+    return jsonify(node)
+
+
+@app.route('/api/node/<node_id>', methods=['POST'])
+def post_node(node_id):
+    data = request.data.decode('utf-8')
+    data = json.loads(data)
+    auto_control = data["auto_control"]
+    preset_temp = data["preset_temp"]
+
+    model = Model()
+    model.set_node_auto_control_and_preset_temp(
+        node_id, auto_control, preset_temp)
+    node = model.get_node_summary(node_id)[0]
+
+    model.commit()
+    model.close()
+
+    return jsonify(node)
 
 
 @app.route('/set-node', methods=['POST'])
