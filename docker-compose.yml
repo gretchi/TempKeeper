@@ -70,7 +70,7 @@ services:
     ports:
       - 28080:8080
     tty: true
-    command: yarn add && yarn serve
+    # command: yarn add && yarn serve
 
   nginx:
     image: nginx:latest
