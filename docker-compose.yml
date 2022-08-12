@@ -69,5 +69,5 @@ services:
       - ./driver/static:/root/static
     ports:
       - 8080:8080
-    # tty: true
-    # command: tail -f /dev/null
+    tty: true
+    command: yarn install && yarn serve
