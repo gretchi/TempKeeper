@@ -60,6 +60,7 @@ class Model(object):
                     ORDER BY sent_at DESC LIMIT 1
                 ) as current_temp
             FROM node AS n
+            WHERE n.plug_mac IS NOT NULL    -- ToDo: フロント対応
             ORDER BY id ASC"""
         return self.dict_fetch_all(query)
 
