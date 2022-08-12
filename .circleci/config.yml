@@ -35,7 +35,7 @@ jobs:
           - ${RELAY_FINGERPRINT}
       - run:
           command: "ssh -o StrictHostKeyChecking=no ${RELAY_USER}@${RELAY_HOST} -p ${RELAY_SSH_PORT} \
-          \"ssh gn-cl-05 \
+          \"ssh gn-cl-14 \
           'sleep 15s && cd ~/TempKeeper && git pull && sudo systemctl restart TempKeeperViewer.service'\""
           no_output_timeout: 10m
 
