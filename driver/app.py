@@ -19,13 +19,13 @@ def index():
     return render_template('index.html', nodes=nodes)
 
 
-@app.route('/view')
-def view():
+@app.route('/control')
+def control():
     model = Model()
     nodes = model.get_nodes_summary()
     model.close()
     now = datetime.datetime.now()
-    return render_template('view.html', nodes=nodes, date=now.strftime("%y/%m/%d(%a)"), time=now.strftime("%H:%M:%S"))
+    return render_template('control.html', nodes=nodes, date=now.strftime("%y/%m/%d(%a)"), time=now.strftime("%H:%M:%S"))
 
 
 @app.route('/set-node', methods=['POST'])
