@@ -59,3 +59,14 @@ services:
     volumes:
       - ./driver:/var/driver
     command: python3 /var/driver/app.py
+
+  cp:
+    build:
+      context: ./control-panel
+      dockerfile: Dockerfile
+    volumes:
+      - ./control-panel:/root/control-panel
+    ports:
+      - 8080:8080
+    tty: true
+    command: tail -f /dev/null

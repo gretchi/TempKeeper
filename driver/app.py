@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-import datetime
 from posixpath import split
 from pprint import pprint
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 
 from model import Model
+from helper import shaping
 
 app = Flask(__name__)
 
@@ -19,13 +19,32 @@ def index():
     return render_template('index.html', nodes=nodes)
 
 
-@app.route('/control')
-def control():
+@app.route('/api/nodes')
+def get_nodes():
     model = Model()
     nodes = model.get_nodes_summary()
     model.close()
-    now = datetime.datetime.now()
-    return render_template('control.html', nodes=nodes, date=now.strftime("%y/%m/%d(%a)"), time=now.strftime("%H:%M:%S"))
+
+    return jsonify(nodes)
+
+
+@app.route('/api/node/<node_id>')
+def get_node(node_id):
+    model = Model()
+    node = model.get_node_summary(node_id)[0]
+    model.close()
+
+    return jsonify(node)
+
+
+@app.route('/api/nodes', methods=['POST'])
+def post_nodes():
+    # model = Model()
+    # nodes = model.get_nodes_summary()
+    # model.close()
+
+    # return jsonify(nodes)
+    return ""
 
 
 @app.route('/set-node', methods=['POST'])
