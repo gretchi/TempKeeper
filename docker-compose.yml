@@ -70,4 +70,4 @@ services:
     ports:
       - 8080:8080
     tty: true
-    command: yarn install && yarn serve
+    command: yarn add && yarn serve
