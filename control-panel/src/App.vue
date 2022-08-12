@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <PanelHeader title="主ヒーター運転操作パネル" />
+    <PanelHeader title="主ヒータ運転操作パネル" />
     <HeaterControlRow v-for="node in nodes" :key="node.id" :nodeId="node.id" />
     <BlankRow />
     <BlankRow />

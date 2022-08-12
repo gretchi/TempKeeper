@@ -13,7 +13,15 @@
 
     <!-- presetTemp -->
     <div class="col col-parent">
-      <p class="el bg-blue">{{ presetTemp.toFixed(1) }}℃</p>
+      <p
+        class="el bg-blue"
+        :class="{
+          'bg-blue': autoCtrl === true,
+          'bg-black': autoCtrl === false,
+        }"
+      >
+        {{ presetTemp.toFixed(1) }}℃
+      </p>
     </div>
 
     <!-- Arrow up -->

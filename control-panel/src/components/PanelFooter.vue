@@ -1,23 +1,22 @@
 <template>
   <div class="row">
-    <div class="col-2 col-parent">
-      <button class="button el bg-magenta">メイン<br />メニュ</button>
+    <div class="col col-parent">
+      <button class="button el bg-magenta">主ヒータ制御</button>
+    </div>
+    <div class="col col-parent">
+      <button class="button el bg-yellow">ノード管理</button>
     </div>
 
-    <div class="col-2 col-parent">
-      <button class="button el bg-yellow">主ヒータ制御</button>
+    <div class="col col-parent"></div>
+
+    <div class="col col-parent">
+      <button class="button el bg-green">疎通正常</button>
+    </div>
+    <div class="col col-parent">
+      <button class="button el bg-green">温度正常</button>
     </div>
 
-    <div class="col-2 col-parent"></div>
-
-    <div class="col-2 col-parent">
-      <button class="button el">ノード管理</button>
-    </div>
-
-    <div class="col-2 col-parent">
-      <button class="button el">ネットワーク管理</button>
-    </div>
-    <div class="col-2 col-parent"></div>
+    <div class="col col-parent"></div>
   </div>
 </template>
 
