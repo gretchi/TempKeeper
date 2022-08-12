@@ -4,24 +4,111 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TempKeeper - Admin</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
+    <title>TempKeeper - 主ヒーター運転操作パネル</title>
+
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.1.0/build/pure-min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
     <style>
-        html {
-            margin-top: 12px;
-            margin-left: 12px;
-        }
-
         body {
-            color: black;
-            background-color: white;
-            font-family: "ＭＳ Ｐゴシック", "MS PGothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
-            font-size: 14px;
-            line-height: 18px;
+            background-color: #000;
+            color: #fff;
+
+            margin: 0;
+            font-family: "ＭＳ ゴシック", "MS Gothic", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro";
+            font-size: 18px;
+
+            width: 100%;
+            height: 100%;
+
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: unset;
+        }
+
+        .container {
+            background-color: #bbb;
+            color: #fff;
+            border: outset 5px #888;
+            padding: 0;
+            width: 800px;
+        }
+
+        .row {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            height: 60px;
+        }
+
+        .col-parent {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .el {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .button {
+            border: outset 5px #bbb;
+        }
+
+        p {
+            text-align: center;
+            line-height: 60px;
+            font-size: 22px;
+        }
+
+        .bg-red {
+            background-color: #f00;
+            color: #000;
+        }
+
+        .bg-green {
+            background-color: #0f0;
+            color: #000;
+        }
+
+        .bg-blue {
+            background-color: #00f;
+            color: #fff;
+        }
+
+        .bg-cyan {
+            background-color: #0ff;
+            color: #000;
+        }
+
+        .bg-magenta {
+            background-color: #f0f;
+            color: #000;
+        }
+
+        .bg-yellow {
+            background-color: #ff0;
+            color: #000;
+        }
+
+        .bg-gray {
+            background-color: #888;
+            color: #fff;
+        }
+
+        .bg-black {
+            background-color: #000;
+            color: #fff;
         }
     </style>
 
@@ -29,47 +116,59 @@
 
 <body>
     <div class="container">
-
-        <p>{{date}} {{time}}</p>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">キー</th>
-                    <th scope="col">設置場所</th>
-                    <th scope="col">設定温度</th>
-                    <th scope="col">現在の温度</th>
-                    <th scope="col">センサMACアドレス</th>
-                    <th scope="col">プラグMACアドレス</th>
-                    <th scope="col">主ヒーター</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in nodes %}
-                <tr>
-                    <td scope="row">{{ row.id }}</td>
-                    <td>{{ row.location_name }}</td>
-                    <td>{{ row.preset_temp }}℃</td>
-                    <td>{{ row.current_temp }}℃</td>
-                    <td>{{ row.sensor_mac }}</td>
-                    <td>{{ row.plug_mac }}</td>
-
-                    {% if row.status == 1 %}
-                    <td>運転中</td>
-
-                    {% else %}
-                    <td>停止</td>
-
-                    {% endif %}
-
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <!-- Header -->
+        <div class="row">
+            <div class="col col-parent">
+                <p class="h5 bg-yellow">主ヒーター運転操作パネル</p>
+                <p class="h5 bg-cyan">2022/8/12(金) 11:34:42</p>
+            </div>
+        </div>
 
 
+        <div class="row">
+            <div class="col col-parent">
+                <p class="el bg-black">ぴー</p>
+            </div>
 
+            <div class="col-1 col-parent">
+                <button class="button el">
+                    <i class="bi bi-caret-down-fill"></i>
+                </button>
+            </div>
+
+            <div class="col col-parent">
+                <p class="el bg-blue">30.0℃</p>
+            </div>
+
+            <div class="col-1 col-parent">
+                <button class="button el">
+                    <i class="bi bi-caret-up-fill"></i>
+                </button>
+            </div>
+
+            <!-- <div class="col col-parent bg-red">
+                <p class="el">運転中</p>
+            </div> -->
+            <!-- <div class="col-2 col-parent bg-gray">
+                <p class="el">停止中</p>
+            </div> -->
+            <div class="col-2 col-parent bg-gray">
+                <p class="el">手動停止</p>
+            </div>
+
+
+            <div class="col-2 col-parent">
+                <button class="button el bg-yellow">停止</button>
+            </div>
+            <div class="col-2 col-parent">
+                <button class="button el bg-green">自動</button>
+            </div>
+        </div>
+
+
+        <!-- end container -->
     </div>
+
 </body>
 
 </html>
