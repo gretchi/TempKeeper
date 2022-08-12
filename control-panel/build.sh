@@ -1,7 +1,6 @@
 #/!bin/bash
 
-yarn install
-
+yarn add
 yarn build
 
 mkdir -p /root/static/control
