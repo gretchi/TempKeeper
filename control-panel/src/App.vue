@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <PanelHeader title="主ヒータ運転操作パネル" />
-    <HeaterControlRow v-for="node in nodes" :key="node.id" :nodeId="node.id" />
+    <HeaterControlRow
+      v-for="node in nodes"
+      v-if="node.plug_mac"
+      :key="node.id"
+      :nodeId="node.id"
+    />
     <BlankRow />
     <BlankRow />
     <BlankRow />
