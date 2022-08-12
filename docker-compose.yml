@@ -67,15 +67,13 @@ services:
     volumes:
       - ./control-panel:/root/control-panel
       - ./middleware/nginx/static:/var/www/static
-    ports:
-      - 28080:8080
-    tty: true
+    # tty: true
     # command: yarn add && yarn serve
 
   nginx:
     image: nginx:latest
     ports:
-      - 8080:80
+      - 8080:8080
     environment:
       TZ: Asia/Tokyo
     volumes:
