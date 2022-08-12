@@ -3,5 +3,5 @@
 yarn add
 yarn build
 
-mkdir -p /root/static/control
-cp -rpf ./dist/* /root/static/control/.
+mkdir -p /var/www/static
+cp -rpf ./dist/* /var/www/static/.
