@@ -5,9 +5,10 @@
 ![main-window](https://user-images.githubusercontent.com/41374250/184886759-5a39b5ee-9e1c-409d-8d78-9989f3e5e45f.jpg)
 
 
-それはわかりやすいデザイン堪らない！誰でも簡単に！！
+それはわかりやすい設定！誰でも簡単に！！
 
-![heater-control](https://user-images.githubusercontent.com/41374250/184887362-ca766b7a-3739-43d3-b77c-e4e4e0e90e36.jpg)
+![heater-control](https://user-images.githubusercontent.com/41374250/184888834-aa3ecdf3-3161-426d-a85b-88eb61f81a12.jpg)
+
 
 ## alembic
 
