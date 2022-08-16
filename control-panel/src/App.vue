@@ -33,7 +33,7 @@ export default {
     getNodes: function () {
       axios.get("/api/nodes").then((res) => {
         const data = res.data;
-        this.nodes = data.filter((node) => node.plug_mac !== "");
+        this.nodes = data.filter((node) => node.plug_mac);
       });
     },
   },
