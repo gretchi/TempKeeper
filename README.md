@@ -1,9 +1,13 @@
 # TempKeeper
 
 令和最新版の小鳥のケージの温度を管理するソリューション！！！
-壮大なサーモスタット｡
 
-![image](image.jpg)
+![main-window](https://user-images.githubusercontent.com/41374250/184886759-5a39b5ee-9e1c-409d-8d78-9989f3e5e45f.jpg)
+
+
+それはわかりやすいデザイン堪らない！誰でも簡単に！！
+
+![heater-control](https://user-images.githubusercontent.com/41374250/184887362-ca766b7a-3739-43d3-b77c-e4e4e0e90e36.jpg)
 
 ## alembic
 
