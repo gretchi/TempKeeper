@@ -12,7 +12,7 @@ from helper import shaping
 app = Flask(__name__)
 
 
-@app.route('/')
+@app.route('/configure/')
 def index():
     model = Model()
     nodes = model.get_nodes()
@@ -56,7 +56,7 @@ def post_node(node_id):
     return jsonify(node)
 
 
-@app.route('/set-node', methods=['POST'])
+@app.route('/configure/set-node', methods=['POST'])
 def set_node():
     model = Model()
     form_dict = {}
@@ -83,23 +83,31 @@ def set_node():
     model.commit()
     model.close()
 
-    return redirect("/")
+    return redirect("/configure/")
 
 
-@app.route('/set-preset-temp', methods=['POST'])
-def set_preset_temp():
+@app.route('/configure/add-node', methods=['POST'])
+def add_node():
     model = Model()
-    for k, v in request.form.items():
-        prop_name, idx = k.split("-")
-        if prop_name != "preset_temp":
-            continue
+    form_dict = {}
 
-        model.set_preset_temp(idx, v)
+    for prop_name, v in request.form.items():
+        if v.lower() == "none" or v.lower() == "null":
+            v = None
+
+        form_dict[prop_name] = v
+
+    sensor_mac = form_dict["sensor_mac"]
+    plug_mac = form_dict["plug_mac"]
+    preset_temp = form_dict["preset_temp"]
+    location_name = form_dict["location_name"]
+
+    model.add_node(sensor_mac, plug_mac, preset_temp, location_name)
 
     model.commit()
     model.close()
 
-    return redirect("/")
+    return redirect("/configure/")
 
 
 if __name__ == "__main__":

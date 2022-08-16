@@ -67,8 +67,10 @@ services:
     volumes:
       - ./control-panel:/root/control-panel
       - ./middleware/nginx/static:/var/www/static
+    # ports:
+    #   - 8000:8000
     # tty: true
-    # command: yarn add && yarn serve
+    # command: tail -f /dev/null
 
   nginx:
     image: nginx:latest

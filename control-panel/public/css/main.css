@@ -43,6 +43,10 @@ body {
     height: 100%;
 }
 
+/* a.button {
+    border: outset 5px #bbb;
+} */
+
 .button {
     border: outset 5px #bbb;
 }

@@ -60,7 +60,6 @@ class Model(object):
                     ORDER BY sent_at DESC LIMIT 1
                 ) as current_temp
             FROM node AS n
-            WHERE n.plug_mac IS NOT NULL    -- ToDo: フロント対応
             ORDER BY id ASC"""
         return self.dict_fetch_all(query)
 
@@ -106,16 +105,17 @@ class Model(object):
             query = "UPDATE node SET plug_ip = %s WHERE plug_mac = %s"
             cursor.execute(query, (plug_ip, plug_mac))
 
-    def set_preset_temp(self, id, preset_temp):
-        with self.conn.cursor() as cursor:
-            query = "UPDATE node SET preset_temp = %s WHERE id = %s"
-            cursor.execute(query, (preset_temp, id))
-
     def set_node(self, id, sensor_mac, plug_mac, preset_temp, location_name):
         with self.conn.cursor() as cursor:
             query = "UPDATE node SET sensor_mac = %s, plug_mac = %s, preset_temp = %s, location_name = %s WHERE id = %s"
             cursor.execute(query, (sensor_mac, plug_mac,
                            preset_temp, location_name, id))
+
+    def add_node(self, sensor_mac, plug_mac, preset_temp, location_name):
+        with self.conn.cursor() as cursor:
+            query = "INSERT INTO node (sensor_mac, plug_mac, preset_temp, location_name) VALUES (%s, %s, %s, %s)"
+            cursor.execute(query, (sensor_mac, plug_mac,
+                           preset_temp, location_name))
 
     def set_node_auto_control_and_preset_temp(self, id, auto_control, preset_temp):
         with self.conn.cursor() as cursor:

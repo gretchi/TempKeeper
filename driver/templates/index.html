@@ -12,41 +12,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+
 </head>
 
 <body>
     <div class="container">
-
         <h3 class="text-muted">温度設定</h3>
-
-        <h4 class="text-muted">現在の設定</h4>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">設置場所</th>
-                    <th scope="col">設定温度</th>
-                    <th scope="col">センサMACアドレス</th>
-                    <th scope="col">プラグMACアドレス</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in nodes %}
-                <tr>
-                    <td scope="row">{{ row.id }}</td>
-                    <td>{{ row.location_name }}</td>
-                    <td>{{ row.preset_temp }}℃</td>
-                    <td>{{ row.sensor_mac }}</td>
-                    <td>{{ row.plug_mac }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-        <hr />
-
-        <h4 class="text-muted">新しい設定</h4>
-        <form action="/set-node" method="POST" enctype="multipart/form-data">
+        <!--
+            ****************************************************************
+            現在の設定
+            ****************************************************************
+        -->
+        <div>
+            <h4 class="text-muted">現在の設定</h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -61,30 +39,103 @@
                     {% for row in nodes %}
                     <tr>
                         <td scope="row">{{ row.id }}</td>
-                        <td>
-                            <input type="text" name="location_name-{{ row.id }}" class="form-control"
-                                value="{{ row.location_name }}">
-                        </td>
-                        <td>
-                            <input type="text" name="preset_temp-{{ row.id }}" class="form-control"
-                                value="{{ row.preset_temp }}">
-                        </td>
-                        <td>
-                            <input type="text" name="sensor_mac-{{ row.id }}" class="form-control"
-                                value="{{ row.sensor_mac }}">
-                        </td>
-                        <td>
-                            <input type="text" name="plug_mac-{{ row.id }}" class="form-control"
-                                value="{{ row.plug_mac }}">
-                        </td>
+                        <td>{{ row.location_name }}</td>
+                        <td>{{ row.preset_temp }}℃</td>
+                        <td>{{ row.sensor_mac }}</td>
+                        <td>{{ row.plug_mac }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
+        </div>
 
-            <button type="submit" class="btn btn-primary">更新</button>
-        </form>
+        <hr />
+        <!--
+            ****************************************************************
+            新しい設定
+            ****************************************************************
+        -->
+        <div>
+            <h4 class="text-muted">新しい設定</h4>
+            <form action="/configure/set-node" method="POST" enctype="multipart/form-data">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">設置場所</th>
+                            <th scope="col">設定温度(℃)</th>
+                            <th scope="col">センサMACアドレス</th>
+                            <th scope="col">プラグMACアドレス</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in nodes %}
+                        <tr>
+                            <td scope="row">{{ row.id }}</td>
+                            <td>
+                                <input type="text" name="location_name-{{ row.id }}" class="form-control"
+                                    value="{{ row.location_name }}">
+                            </td>
+                            <td>
+                                <input type="text" name="preset_temp-{{ row.id }}" class="form-control"
+                                    value="{{ row.preset_temp }}">
+                            </td>
+                            <td>
+                                <input type="text" name="sensor_mac-{{ row.id }}" class="form-control"
+                                    value="{{ row.sensor_mac }}">
+                            </td>
+                            <td>
+                                <input type="text" name="plug_mac-{{ row.id }}" class="form-control"
+                                    value="{{ row.plug_mac }}">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">適用</button>
+            </form>
+        </div>
 
+        <hr />
+
+        <!--
+            ****************************************************************
+            ノード追加
+            ****************************************************************
+        -->
+
+        <div>
+            <h4 class="text-muted">ノード追加</h4>
+            <form action="/configure/add-node" method="POST" enctype="multipart/form-data">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">設置場所</th>
+                            <th scope="col">設定温度(℃)</th>
+                            <th scope="col">センサMACアドレス</th>
+                            <th scope="col">プラグMACアドレス</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="text" name="location_name" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="preset_temp" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="sensor_mac" class="form-control">
+                            </td>
+                            <td>
+                                <input type="text" name="plug_mac" class="form-control">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary">追加</button>
+            </form>
+        </div>
     </div>
 </body>
 
