@@ -4,6 +4,7 @@ import getpass
 import logging
 
 from pprint import pprint
+from socket import gethostname
 
 import helper
 
@@ -18,6 +19,8 @@ class PlugController(batch.BatchBase):
 
     def main(self):
         self.search()
+
+        collected_by = gethostname()
 
         for row in self.model.get_nodes():
             sensor_mac = row["sensor_mac"]
@@ -44,7 +47,8 @@ class PlugController(batch.BatchBase):
 
             try:
                 plugwork.set_plug_state(state, plug_ip)
-                self.model.add_plug_state(plug_mac, state, helper.dt.now())
+                self.model.add_plug_state(
+                    plug_mac, state, helper.dt.now(), collected_by)
             except Exception as e:
                 logging.error(e)
                 self.model.rollback()

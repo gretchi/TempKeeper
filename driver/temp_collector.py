@@ -4,6 +4,8 @@ import getpass
 import logging
 
 from pprint import pprint
+from socket import gethostname
+
 from re import T
 
 import helper
@@ -22,6 +24,8 @@ class TempCollector(batch.BatchBase):
     def main(self):
         life = FAIL_LIFE
 
+        collected_by = gethostname()
+
         for row in self.model.get_nodes_order_by_random():
             mac = row["sensor_mac"]
             location_name = row["location_name"]
@@ -36,7 +40,8 @@ class TempCollector(batch.BatchBase):
                     # 稀に値がマイナスになる場合の対応
                     continue
 
-                self.model.add_temperature(mac, temp, humidity, battery, ts)
+                self.model.add_temperature(
+                    mac, temp, humidity, battery, ts, collected_by)
             except Exception as e:
                 logging.error(e)
                 self.model.rollback()

@@ -95,10 +95,11 @@ class Model(object):
         query = "SELECT id, sensor_mac, plug_mac, plug_ip, preset_temp, location_name FROM node ORDER BY RANDOM()"
         return self.dict_fetch_all(query)
 
-    def add_temperature(self, mac, temp, humidity, battery, sent_at):
+    def add_temperature(self, mac, temp, humidity, battery, sent_at, collected_by):
         with self.conn.cursor() as cursor:
-            query = "INSERT INTO temperature (mac, temp, humidity, battery, sent_at) VALUES (%s, %s, %s, %s, %s)"
-            cursor.execute(query, (mac, temp, humidity, battery, sent_at))
+            query = "INSERT INTO temperature (mac, temp, humidity, battery, sent_at, collected_by) VALUES (%s, %s, %s, %s, %s, %s)"
+            cursor.execute(query, (mac, temp, humidity,
+                           battery, sent_at, collected_by))
 
     def set_plug_ip(self, plug_mac, plug_ip):
         with self.conn.cursor() as cursor:
@@ -127,9 +128,9 @@ class Model(object):
             query = "SELECT mac, temp, humidity, battery, sent_at FROM temperature  WHERE mac = %s ORDER BY sent_at DESC LIMIT 1"
             return self.dict_fetch_all(query, (mac, ))[0]
 
-    def add_plug_state(self, mac, status, sent_at):
+    def add_plug_state(self, mac, status, sent_at, collected_by):
         with self.conn.cursor() as cursor:
             query = (
-                "INSERT INTO plug_state (mac, status, sent_at) VALUES (%s, %s, %s)"
+                "INSERT INTO plug_state (mac, status, sent_at, collected_by) VALUES (%s, %s, %s, %s)"
             )
-            cursor.execute(query, (mac, status, sent_at))
+            cursor.execute(query, (mac, status, sent_at, collected_by))
